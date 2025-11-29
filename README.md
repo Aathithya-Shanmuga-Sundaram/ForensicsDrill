@@ -157,12 +157,6 @@ Define:
 
 ---
 
-## 📜 License
-
-Open‑source; use MIT License for academic use.
-
----
-
 ## 🤝 Contributing
 
 Pull requests welcome — especially new scenarios.
