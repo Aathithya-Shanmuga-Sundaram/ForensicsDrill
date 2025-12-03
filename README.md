@@ -1,162 +1,154 @@
-# **ForensicsDrill**
+# 🕵️‍♂️ ForensicsDrill — Interactive DFIR Training Simulator
 
-### *Interactive Incident Response & Digital Forensics Simulation CLI*
+[![Python 3.6+](https://img.shields.io/badge/Python-3.6%2B-blue.svg)](https://www.python.org/)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-green.svg)](https://www.python.org/)
+[![Cybersecurity Lab](https://img.shields.io/badge/%23MakeEveryoneCyberSafe-orange.svg)](https://github.com/Aathithya-Shanmuga-Sundaram)
 
-ForensicsDrill is a **hands‑on incident response simulation tool** designed for cybersecurity labs.
-It generates realistic IR scenarios where students must investigate artifacts, analyze logs, inspect processes, search for indicators of compromise, and identify the root cause of the simulated attack.
 
-The tool is fully **CLI‑based**, requires **no admin privileges**, and is ideal for restricted lab environments.
-
----
-
-## ⭐ Features
-
-* Multiple IR Scenarios (Ransomware, Exfiltration, Persistence)
-* Randomized artifacts each run (prevents memorizing answers)
-* Fake directory tree (logs, binaries, ransom notes, staged data, etc.)
-* Process simulation (list, inspect, parent-child tracing)
-* File investigation (entropy, keyword detection, heuristic flags)
-* IOC scanning (automatic detection of suspicious patterns)
-* Search across artifacts (grep-like)
-* Timeline analysis
-* JSON incident report generation
-* Flag solving mechanism
-* Built‑in Hints & Full Walkthrough for instructors
+A fully offline, zero‑dependency digital forensics lab simulator designed for universities, cybersecurity clubs, and training centers. Every session generates **unique evidence**, **random flag placements**, and **realistic artifacts**, forcing students to investigate not memorize.
 
 ---
 
-## 📦 Installation
+## 🔥 What This Project Is
+
+A hands-on DFIR environment where learners:
+
+* Explore a simulated compromised workstation
+* Inspect malicious files and processes
+* Perform IOC scanning & timeline analysis
+* Extract and decode real flags hidden in **randomized locations**
+* Submit findings and generate a JSON report
+
+Students interact with the system using custom forensic commands, no OS-level access required.
+
+---
+
+## 🎯 Key Features
+
+### **1. Randomized Flag System**
+
+* Each scenario contains **6+ possible hiding spots**
+* Only **2–3 are selected per session**
+* Flags may appear as:
+
+  * Plaintext files
+  * Base64/hex/rot13 encoded
+  * Embedded within config files
+  * Hidden inside fake process command-line arguments
+  * High‑entropy "suspicious" blobs
+
+### **2. Three Realistic Incident Scenarios**
+
+| Scenario                            | Core Flag                     | Themes                                                       |
+| ----------------------------------- | ----------------------------- | ------------------------------------------------------------ |
+| **Ransomware Campaign**             | `FD{XXXXXXXXXXXXXXXXXXX}`     | Locked files, ransom notes, rogue processes, encryption keys |
+| **Credential Theft & Exfiltration** | `FD{XXXXXXXXXXXXXXXXXXXXXXX}` | Credential dumping, C2 activity, staged archives             |
+| **Persistence Startup Compromise**  | `FD{XXXXXXXXXXXXXXXXX}`       | Autoruns, malicious services, registry artifacts             |
+
+### **3. 100% Python Standard Library**
+
+No extra packages. No pip. Works on:
+
+* Linux
+* Windows
+* macOS
+* Air‑gapped labs
+* Educational VMs
+
+### **4. Investigation-Focused Command Shell**
+
+Students interact using a realistic command-style interface:
+
+```
+explore                  # Show workspace map
+ls <path>                # List directory
+open <file>              # View file content
+search <keyword>         # Search recursively
+timeline                 # Show modification activity
+proc list                # List processes
+proc inspect <pid>       # View process details
+ioc-scan                 # Automated IOC hunt
+investigate <file/pid>   # Entropy + suspicious indicators
+report                   # Export JSON findings
+solve <FLAG>             # Submit discovered flag
+hint                     # One clue
+guide                    # Explains step-by-step
+```
+
+---
+
+## 🚀 Quick Start
+
+### **1. Clone the Project**
 
 ```bash
-git clone https://github.com/Aathithya-Shanmuga-Sundaram/ForensicsDrill
+git clone https://github.com/Aathithya-Shanmuga-Sundaram/ForensicsDrill.git
 cd ForensicsDrill
 ```
 
-No elevated privileges needed.
-Runs on **Windows, Linux, macOS**.
+### **2. Initialize a new session**
 
----
-
-## 🎮 Usage
-
-### **1. Initialize a lab session**
-
-```
+```bash
 python app.py init --session lab1
 ```
 
-Initialize with a specific scenario:
+Generates:
 
-```
-python app.py init --session lab1 --scenario ransomware_campaign
-```
+* Random files
+* Random flagged artifacts
+* Scenario metadata
+* Fake process table
 
-Available scenarios:
+### **3. Start the investigation**
 
-* `ransomware_campaign`
-* `credential_theft_exfil`
-* `persistence_startup`
-
----
-
-### **2. Start the interactive console**
-
-```
+```bash
 python app.py start --session lab1
 ```
 
-You will enter the simulation shell:
-
-```
-ForensicsDrill v1.0
-FD>
-```
+You will enter the command shell.
 
 ---
 
-## 🧪 Commands Overview
-
-### Navigation
+## 🧪 Example Student Workflow
 
 ```
 explore
-ls <directory>
-open <file>
-timeline
-```
-
-### Investigation
-
-```
-investigate <file>
-search <keyword>
 ioc-scan
-```
-
-### Process Analysis
-
-```
+timeline
+search "FD{"
 proc list
-proc inspect <pid>
+proc inspect 1048
+open disk/README_RESTORE_FILES.txt
+solve FD{RANSOMWARE_DETECTED}
 ```
 
-### Reporting & Solving
+**Example Output:**
 
 ```
-report
-solve <FLAG>
-guide
-explain
-```
-
----
-
-## 📂 Workspace Structure
-
-```
-workspaces/
-   lab1/
-       disk/
-       logs/
-       processes.json
-       scenario.json
-       report.json
+✓ Correct — scenario solved.
+Report saved to: workspace/lab1/report.json
 ```
 
 ---
 
-## 🧑‍🏫 Instructor Mode
+## 🎓 Ideal For
 
-### `guide`
-
-High‑level hints for students.
-
-### `explain`
-
-Full walkthrough + correct flag
-(Recommended for teachers preparing practical sessions.)
-
----
-
-## 🛠 Add Your Own Scenarios
-
-Add a new JSON file inside:
-
-```
-scenarios/
-```
-
-Define:
-
-* file generation rules
-* randomized names
-* IOCs
-* flags
-* hints
-* full explanation text
+* Cybersecurity degree programs
+* DFIR training workshops
+* Cyber clubs and CTF teams
+* Ransomware and OSINT teaching modules
+* Independent learners building real skills
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests welcome — especially new scenarios.
+1. Add new scenarios
+2. Define new flag hiding patterns
+3. Test with:
+
+```bash
+python app.py init --session test --seed {SEED}
+```
+
+4. Submit a pull request
